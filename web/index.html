@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leitor</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Modulo
+            </div>
+            <div class="card-body">
+                <input id="campoPartNumber" type="text">
+                <button type="button" onclick="aoba()">envia</button>
+
+                <div class="d-none" id="testeleitura">testes</div>
+                <div class="d-none" id="testetamanho">tamanho</div>
+                <div id="showPartName" class="fs-medium">Back: </div>
+                <div id="showModDestino">PartNumber: </div>
+                <div id="showModDestinoCor" class="fs-big"></div>
+                <button type="button">alerta</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function aoba() {
+            campo = document.getElementById("campoPartNumber")
+            alert(campo.value)
+            campo.value = ""
+        }
+
+    </script>
+</body>
+
+</html>

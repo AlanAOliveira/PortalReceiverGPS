@@ -1,11 +1,9 @@
-# python -m http.server 8000 --directory ./web
-
 from http.server import HTTPServer as BaseHTTPServer, SimpleHTTPRequestHandler
 import simplejson
 import os
 import data as dados
 import htmlfunctions
-import ssl
+import DB
 import socket
 
 class HTTPHandler(SimpleHTTPRequestHandler):
@@ -34,34 +32,14 @@ class HTTPHandler(SimpleHTTPRequestHandler):
         data = simplejson.loads(self.data_string)
         print(data["function"])
 
-        if data["function"] == "getLista":
+        if data["function"] == "enviarListaYG":
             self.wfile.write(
-                bytes(htmlfunctions.geralistapecas(), "utf-8"))
+                bytes(htmlfunctions.enviarListaYG(data["dados"]), "utf-8"))
             return
         
-        if data["function"] == "getListaSingle":
+        if data["function"] == "getYGBarcode":
             self.wfile.write(
-                bytes(htmlfunctions.geralistasingle(), "utf-8"))
-            return
-        
-        if data["function"] == "salvaLista":
-            self.wfile.write(
-                bytes(htmlfunctions.salvaLista(data["dados"]), "utf-8"))
-            return
-        
-        if data["function"] == "salvaListaSingle":
-            self.wfile.write(
-                bytes(htmlfunctions.salvaListaSingle(data["dados"]), "utf-8"))
-            return
-        
-        if data["function"] == "relatorioFinal":
-            self.wfile.write(
-                bytes(htmlfunctions.relatorioFinal(), "utf-8"))
-            return
-
-        else:
-            with open("for_presen.py", 'rb') as f:
-                self.wfile.write(f.read())
+                bytes(htmlfunctions.getYGBarcode(data["dados"]), "utf-8"))
             return
          
 class HTTPServer(BaseHTTPServer):
@@ -75,6 +53,8 @@ class HTTPServer(BaseHTTPServer):
 
 
 web_dir = os.path.join(os.path.dirname(__file__), 'web')
-httpd = HTTPServer(web_dir, (socket.gethostname(), 8444))
+httpd = HTTPServer(web_dir, (socket.gethostname(), 80))
+#httpd = HTTPServer(web_dir, ("10.253.145.53", 80))
+
 print(socket.gethostname())
 httpd.serve_forever()
