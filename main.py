@@ -6,6 +6,7 @@ import htmlfunctions
 import DB
 import socket
 
+#python -m eel main.py web --onefile
 class HTTPHandler(SimpleHTTPRequestHandler):
     
     def _set_headers(self):
